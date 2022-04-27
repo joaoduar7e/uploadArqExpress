@@ -9,6 +9,9 @@ app.use(bodyParser.urlencoded({extended:true}))
 const timeElapsed = Date.now();
 const today = new Date(timeElapsed);
 
+// Cria um diskStora
+// Destiation, cb (callback) é o caminho que o arquivo vai 
+// Filename, nome que o arquivo terá
 const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
         cb(null, 'uploads/')
@@ -21,12 +24,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage})
 
-
+//Pagina inicial que chama(lê) o arquivo index.html
 app.get('/', (req, res)=>{ 
     // res.json({Message: 'Hello, world!'});
     res.sendFile(__dirname+'/index.html');
 })
 
+//Caminho post, quando for /arquivo
+//Verifica se o arquivo da requisição é nullo
+//Caso não ele mostra a mensagem de sucesso e faz o upload
 app.post('/upload', upload.single('arquivo'), (req, res, next) => {
 
 const file = req.file
