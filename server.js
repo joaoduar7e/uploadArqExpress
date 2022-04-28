@@ -46,6 +46,15 @@ if(!file){
 }
 })
 
+const url = 'http://127.0.0.1:3000'
+
 app.listen(3000, '127.0.0.1', ()=>{
     console.log('Server running on 127.0.0.1:3000')
 })
+
+// Verifica a platforma
+const open = (process.platform == 'linux' ? 'xdg-open' :
+    process.platform == 'win32' ? 'start' : 'xdg-open');
+
+// Executa no navegador
+require('child_process').exec(open + ' ' + url)
